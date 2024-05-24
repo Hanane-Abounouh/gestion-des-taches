@@ -31,7 +31,7 @@
     </a>
   </div>
   <div class="flex justify-end">
-    <a href="#" type="button" class="inline-block rounded-full border bg-gray-300   px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-green-3 transition duration-150 ease-in-out hover:bg-green-accent-300 hover:shadow-green-2 focus:bg-success-accent-300 focus:shadow-green-2 focus:outline-none focus:ring-0 active:bg-green-600 active:shadow-green-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
+    <a href="AddTache.php" type="button" class="inline-block rounded-full border bg-gray-300   px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-green-3 transition duration-150 ease-in-out hover:bg-green-accent-300 hover:shadow-green-2 focus:bg-success-accent-300 focus:shadow-green-2 focus:outline-none focus:ring-0 active:bg-green-600 active:shadow-green-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
       Ajouter
     </a>
   </div>

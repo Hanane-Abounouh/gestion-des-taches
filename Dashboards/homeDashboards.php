@@ -1,3 +1,12 @@
+
+<?php
+
+session_start(); 
+
+// Vérifiez si l'utilisateur est connecté et s'il a le rôle d'administrateur
+if(isset($_SESSION['id_role']) && $_SESSION['id_role'] == 1) {
+    // Si oui, générez le code HTML du dashboard
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +106,7 @@
                 </svg>
             </a>
             <!-- logout -->
-            <a href="#" class="flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-300">
+            <a href="../logout.php" class="flex items-center text-gray-600 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M5 11h8v2H5v3l-5-4l5-4zm-1 7h2.708a8 8 0 1 0 0-12H4a9.985 9.985 0 0 1 8-4c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.985 9.985 0 0 1-8-4" />
                 </svg>
@@ -116,6 +125,13 @@
 </div>
 
 </div>
+<?php
+} else {
+    // Si l'utilisateur n'est pas un administrateur, vous pouvez rediriger vers une autre page ou afficher un message
+    header('Location: ../login.php'); // Redirigez vers une autre page
+    exit; // Arrêtez l'exécution du script
+}
+?>
 
 <script>
     //script Dashboard

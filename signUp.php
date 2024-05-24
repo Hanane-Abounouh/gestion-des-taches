@@ -11,7 +11,7 @@ if(isset($_POST['sign-button'])){
     if(!empty($_POST['name'])  && !empty($_POST['email']) && !empty($_POST['password']) ) {
         if($password == $confirmation_password) {
             $con->insertData($name,$email,$password,$id_role);
-            echo "Register successful!";
+            header("Location: login.php");
         } else {
             echo "Passwords do not match!";
         }

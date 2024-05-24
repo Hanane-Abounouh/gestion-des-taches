@@ -27,10 +27,9 @@
           <div class="px-4 my-4 w-full sm:w-auto">
            
             <div>
-              <h1 class="text-white text-xl border-[#FFCD05] pb-4 mb-4 border-b-4">Blog</h1>
+              <h1 class="text-white text-xl border-[#FFCD05] pb-4 mb-4 border-b-4">Home</h1>
             </div>
             <ul class="leading-8 mt-5">
-              <li><a href="./Home.php" >Home</a></li>
               <li><a href="#" >About Us</a></li>
               <li><a href="#" >Category</a></li>
               <li><a href="#" >Login</a></li>

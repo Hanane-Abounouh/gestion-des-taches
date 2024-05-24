@@ -12,7 +12,7 @@
 
     
 
-
+<?php include 'navbar.php'; ?>
 
 <main class="bg-gray-50 dark:bg-gray-900">
   
@@ -44,16 +44,16 @@
                 <input type="password"  name="confirmation_password" id="confirmation_password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
             </div>
           
-            <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  name="sign-button">Create account</button>
-            <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                Already have an account? <a href="#" class="text-primary-700 hover:underline dark:text-primary-500">Login here</a>
+            <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-[#864ac2] rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  name="sign-button">Create account</button>
+            <div class="text-sm font-medium text-gray-700 dark:text-gray-400">
+                Already have an account? <a href="login.php" class="text-primary-700 hover:underline dark:text-primary-500">Login here</a>
             </div>
         </form>
     </div>
 </div>
 </main>
 
-
+<?php include 'footer.php'; ?>
 
 
 

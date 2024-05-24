@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.overflow-y-auto {
+    scrollbar-width: none ;
+    -ms-overflow-style: none !important ;
+    overflow-y: auto ;
+}

@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,9 @@
 </head>
 
 
-<body class="flex flex-col min-h-screen bg-gray-100 justify-center items-center">
- 
+<body class="flex flex-col  bg-gray-100 justify-center items-center">
 <?php include 'navbar.php'; ?>
+
     
 
     <section class="container mx-auto  flex flex-col justify-center items-center h-screen">
@@ -19,9 +20,9 @@
         <h1 class="text-3xl font-semibold mb-4 text-left">Liste des tâches</h1>
     </div>
         
-        <div class="border border-[#8e6396] bg-[#ffff] p-20 mt-12">
+        <div class="border border-[#8e6396] bg-[#ffff] p-20 mt-12 h-[66%] overflow-y-auto">
             <!-- Boutons d'exportation -->
-            <div class="flex justify-between gap-4 mb-4">
+            <div class="flex justify-between gap-4  mb-4">
   <div class="flex gap-4">
     <a href="export.php?type=csv" type="button" class="inline-block bg-[#884fc0] text-white rounded-full border-2 border-primary-100 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:border-primary-accent-200 hover:bg-secondary-50/50 focus:border-primary-accent-200 focus:bg-secondary-50/50 focus:outline-none focus:ring-0 active:border-primary-accent-200 motion-reduce:transition-none dark:border-primary-400 dark:text-primary-300 dark:hover:bg-blue-950 dark:focus:bg-blue-950">
       Exporter CSV
@@ -144,13 +145,16 @@ $con = null;
                 <!-- Répétez ces divs pour chaque tâche -->
             </div>
         </div>
+        
+   
+    
     </section>
 
 
 
 
 
-    <?php include 'footer.php'; ?>
+
 
 
     <script>
@@ -168,5 +172,7 @@ $con = null;
             }
         }
     </script>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
+

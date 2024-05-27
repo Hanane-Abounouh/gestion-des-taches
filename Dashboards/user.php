@@ -100,23 +100,18 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        // Fonction pour ajouter un utilisateur via AJAX
         function addUser() {
-            // Collecte des données du formulaire
             var fullName = document.getElementById('fullName').value;
             var email = document.getElementById('email').value;
             var role = document.getElementById('role').value;
 
-            // Envoi de la requête AJAX
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'add_user.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                    // Analyse de la réponse JSON
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
-                        // Mise à jour de la table des utilisateurs avec la nouvelle ligne
                         var user = response.user;
                         var newRow = "<tr class='text-gray-800'>" +
                             "<td class='px-4 py-3 text-sm'>" + user.id_user + "</td>" +
@@ -134,55 +129,54 @@
                             "</td>" +
                             "</tr>";
                         document.getElementById('userTableBody').innerHTML += newRow;
-                        // Réinitialisation des champs du formulaire
                         document.getElementById('fullName').value = '';
                         document.getElementById('email').value = '';
-                        // Masquer le formulaire d'ajout
                         hideAddUserForm();
                     } else {
                         console.error(response.message);
-                        // Afficher un message d'erreur à l'utilisateur
                     }
                 } else if (xhr.readyState === XMLHttpRequest.DONE) {
-                    // Gestion des erreurs
                     console.error('Une erreur s\'est produite lors de l\'ajout de l\'utilisateur.');
-                    // Afficher un message d'erreur à l'utilisateur
                 }
             };
             xhr.send('fullName=' + encodeURIComponent(fullName) + '&email=' + encodeURIComponent(email) + '&role=' + encodeURIComponent(role));
         }
 
         function hideAddUserForm() {
-            // Masque le formulaire pour ajouter un utilisateur
             document.getElementById('addUserForm').classList.add('hidden');
         }
 
         function showAddUserForm() {
-            // Affiche le formulaire pour ajouter un utilisateur
             document.getElementById('addUserForm').classList.remove('hidden');
         }
+
         function deleteUser(userId) {
-    if (confirm('Are you sure you want to delete this user?')) {
-        // Envoi de la requête AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'delete_user.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                // Supprimez la ligne de l'utilisateur supprimé de la table
-                var row = document.querySelector('[data-user-id="' + userId + '"]').closest('tr');
-                if (row) {
-                    row.remove();
-                } else {
-                    console.error('User row not found.');
-                }
-            } else if (xhr.readyState === XMLHttpRequest.DONE) {
-                console.error('An error occurred while deleting the user.');
+            if (confirm('Are you sure you want to delete this user?')) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'delete_user.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        var row = document.querySelector('[data-user-id="' + userId + '"]').closest('tr');
+                        if (row) {
+                            row.remove();
+                        } else {
+                            console.error('User row not found.');
+                        }
+                    } else if (xhr.readyState === XMLHttpRequest.DONE) {
+                        console.error('An error occurred while deleting the user.');
+                    }
+                };
+                xhr.send('userId=' + encodeURIComponent(userId));
             }
-        };
-        xhr.send('userId=' + encodeURIComponent(userId));
-    }
-}
+        }
+
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.matches('.delete-btn')) {
+                var userId = e.target.closest('.delete-btn').dataset.userId;
+                deleteUser(userId);
+            }
+        });
     </script>
 </body>
 </html>

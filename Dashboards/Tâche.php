@@ -36,11 +36,11 @@
                                 <div class="flex justify-between items-center mt-8">
                                     <div class="flex items-center gap-10">
                                         <div class="flex gap-3">
-                                            <button  id="delete-btn" class= ' flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-red-600 rounded-lg' aria-label='Delete' data-task-id='<?php echo $row["id_tache"]; ?>'>
-                                                <svg class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20'>
-                                                    <path fill-rule='evenodd' d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z' clip-rule='evenodd'></path>
-                                                </svg>
-                                            </button>
+                                        <button class="delete-task-btn text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400" aria-label="Supprimer la tâche" data-task-id="<?php echo $row['id_tache']; ?>">
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                               </button>
                                             <a href="edit_task.php?id=<?php echo htmlspecialchars($row['id_tache']); ?>" class="text-green-600 hover:text-green-800 dark:text-green-500 dark:hover:text-green-400" aria-label="Modifier la tâche" >
                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536-10.607 10.607H4.625v-4.536l10.607-10.607zM19 3.75l1.25 1.25-2.536 2.536-1.25-1.25L19 3.75z"/>
@@ -74,37 +74,42 @@
     <script>
 
       //script taches 
-$(document).ready(function() {
-    // Sélectionnez tous les boutons de suppression
-    $('delete-btn').on('click', function() {
-        // Récupérez l'identifiant de la tâche à partir de l'attribut data-task-id
-        var taskId = $(this).data('task-id');
-        var taskItem = $(this).closest('.task-item');
+// Fonction pour supprimer un utilisateur
+function deleteUser(userId) {
+    if (confirm('Are you sure you want to delete this user?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'delete_user.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
-        // Confirmer la suppression
-        if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
-            // Envoyez une requête AJAX pour supprimer la tâche avec l'identifiant spécifié
-            $.ajax({
-                url: 'delete_task.php',
-                type: 'POST',
-                data: { task_id: taskId },
-                success: function(response) {
-                    var res = JSON.parse(response);
-                    // Vérifiez si la requête a réussi
-                    if (res.success) {
-                        // Supprimer l'élément tâche du DOM
-                        taskItem.remove();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    var row = document.querySelector('[data-user-id="' + userId + '"]').closest('tr');
+                    if (row) {
+                        row.remove();
                     } else {
-                        // Affichez un message d'erreur si la suppression a échoué
-                        console.error('La suppression de la tâche a échoué.');
+                        console.error('User row not found.');
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Une erreur s\'est produite lors de la suppression de la tâche :', error);
+                } else {
+                    console.error(response.message);
                 }
-            });
-        }
-    });
+            } else if (xhr.readyState === XMLHttpRequest.DONE) {
+                console.error('An error occurred while deleting the user.');
+            }
+        };
+
+        // Envoyer les données JSON avec l'ID de l'utilisateur
+        xhr.send(JSON.stringify({ id_user: userId }));
+    }
+}
+
+// Gestion des clics sur les boutons de suppression
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.matches('.delete-btn')) {
+        var userId = e.target.closest('.delete-btn').dataset.userId;
+        deleteUser(userId);
+    }
 });
 
 //edit
@@ -130,6 +135,42 @@ $(document).ready(function() {
         });
     });
 });
+
+
+ 
+// Ajoutez un gestionnaire d'événements pour les clics sur les boutons de delet
+$(document).ready(function() {
+    $('.delete-task-btn').click(function() {
+        // Désactiver le bouton de suppression
+        $(this).prop('disabled', true);
+
+        var taskId = $(this).data('task-id');
+        var taskDiv = $(this).closest('.flex.flex-col');
+
+        if (confirm('Are you sure you want to delete this task?')) {
+            $.ajax({
+                url: 'deleteTask.php',
+                type: 'POST',
+                data: { task_id: taskId },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    if (data.success) {
+                        taskDiv.remove();
+                    } else {
+                        alert(data.message || 'Failed to delete task');
+                    }
+                },
+                error: function() {
+                    alert('Error deleting task');
+                }
+            });
+        } else {
+            // Réactiver le bouton de suppression si la boîte de confirmation est annulée
+            $(this).prop('disabled', false);
+        }
+    });
+});
+
     </script>
    
 </body>

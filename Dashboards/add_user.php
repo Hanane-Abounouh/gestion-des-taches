@@ -2,9 +2,9 @@
 require "../connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = $_POST['fullName'];
-    $email = $_POST['email'];
-    $role = $_POST['role'];
+    $nom = trim($_POST['fullName']);
+    $email = trim($_POST['email']);
+    $role = trim($_POST['role']);
 
     if (!empty($nom) && !empty($email) && !empty($role)) {
         $stmt = $con->prepare("INSERT INTO users (nom, email, id_role) VALUES (:nom, :email, :role)");

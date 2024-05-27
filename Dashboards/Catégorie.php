@@ -151,6 +151,34 @@
             });
         });
     });
+    // Gestionnaire d'événements pour le clic sur les boutons de suppression de catégorie
+$(document).on('click', '.delete-btn', function() {
+    if (confirm('Are you sure you want to delete this category?')) {
+        var categoryId = $(this).data('category-id');
+        
+        // Envoi de la requête AJAX pour supprimer la catégorie
+        $.ajax({
+            url: 'delete_category.php',
+            type: 'POST',
+            data: { id_categorie: categoryId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Supprimez visuellement la ligne de catégorie supprimée de l'interface utilisateur
+                    $('[data-category-id="' + categoryId + '"]').closest('tr').remove();
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                alert('An error occurred while deleting the category.');
+            }
+        });
+    }
+});
+
    </script>
 </body>
 </html>

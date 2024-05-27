@@ -179,6 +179,41 @@ function showAddUserForm() {
         document.getElementById('updateTacheForm').classList.remove('hidden');
     }
 
+
+    
+// Ajoutez un gestionnaire d'événements pour les clics sur les boutons de delet
+$(document).ready(function() {
+    $('.delete-task-btn').click(function() {
+        // Désactiver le bouton de suppression
+        $(this).prop('disabled', true);
+
+        var taskId = $(this).data('task-id');
+        var taskDiv = $(this).closest('.flex.flex-col');
+
+        if (confirm('Are you sure you want to delete this task?')) {
+            $.ajax({
+                url: 'deleteTask.php',
+                type: 'POST',
+                data: { task_id: taskId },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    if (data.success) {
+                        taskDiv.remove();
+                    } else {
+                        alert(data.message || 'Failed to delete task');
+                    }
+                },
+                error: function() {
+                    alert('Error deleting task');
+                }
+            });
+        } else {
+            // Réactiver le bouton de suppression si la boîte de confirmation est annulée
+            $(this).prop('disabled', false);
+        }
+    });
+});
+
 </script>
 <script src="script.js"></script>
 

@@ -170,7 +170,14 @@ function showAddUserForm() {
         document.getElementById('addUserForm').classList.remove('hidden');
     }
     
-
+    function hideUpdatTacheForm() {
+        // Masque le formulaire pour ajouter un utilisateur
+        document.getElementById('updateTacheForm').classList.add('hidden');
+    }
+    function showUpdateTacheForm() {
+        // Affiche le formulaire pour ajouter un utilisateur
+        document.getElementById('updateTacheForm').classList.remove('hidden');
+    }
 
 </script>
 <script src="script.js"></script>

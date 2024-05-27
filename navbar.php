@@ -52,10 +52,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         </button>
                     </div>
                     <div class="flex gap-7">
-                  
                         <?php if(isset($_SESSION['nom'])): ?>
                             <p class="text-white">Welcome, <?php echo $_SESSION['nom']; ?></p>
-                            <?php if (isset($_SESSION['id_role']) && $_SESSION['id_role'] == 2): ?>
+                            <?php if (isset($_SESSION['id_role']) && $_SESSION['id_role'] = 2): ?>
                                 <a href="profile.php" class="text-white">Profile</a>
                                 <a href="logout.php" class="text-white">Logout</a>
                             <?php endif; ?>
